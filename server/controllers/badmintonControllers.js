@@ -34,13 +34,15 @@ const addUser = async (req, res) => {
     major,
     phone_number,
     sport_type,
+    medal,
+    status
   } = req.body;
 
   const profile_image = req.files?.profile_image?.[0]?.filename || null;
   const document = req.files?.document?.[0]?.filename || null;
 
-  const sql = `INSERT INTO badminton (prefix, fname, lname, student_id, department, faculty, major, phone_number, sport_type, profile_image, document)
-               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+  const sql = `INSERT INTO badminton (prefix, fname, lname, student_id, department, faculty, major, phone_number, sport_type, profile_image, document, created_at, updated_at, medal, status)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?, ?)`;
 
   try {
     const [result] = await pool.query(sql, [
@@ -55,6 +57,8 @@ const addUser = async (req, res) => {
       sport_type,
       profile_image,
       document,
+      medal, 
+      status
     ]);
 
     res.status(201).send({
@@ -67,6 +71,31 @@ const addUser = async (req, res) => {
   }
 };
 
+const updateMedalAndStatus = async (req, res) => {
+  const { id } = req.params;
+  const { medal, status } = req.body;
+
+  const sql = `
+    UPDATE badminton 
+    SET medal = ?, status = ?, updated_at = NOW() 
+    WHERE id = ?
+  `;
+
+  try {
+    const [result] = await pool.query(sql, [medal, status, id]);
+
+    if (result.affectedRows === 0) {
+      return res.status(404).send("User not found.");
+    }
+
+    res.status(200).send({
+      message: "Medal and status updated successfully.",
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error updating medal and status.");
+  }
+};
 // API to get a user by ID
 const getUserById = async (req, res) => {
   const { id } = req.params;
@@ -87,7 +116,7 @@ const getUserById = async (req, res) => {
 };
 
 const searchPlayers = async (req, res) => {
-  const { fname, lname, department } = req.query;
+  const { fname, lname, department, sport_type } = req.query;
 
   // Build SQL query dynamically based on provided parameters
   let sql = "SELECT * FROM badminton WHERE 1=1";
@@ -108,6 +137,11 @@ const searchPlayers = async (req, res) => {
     values.push(`%${department}%`);
   }
 
+  if (sport_type) {
+    sql += " AND sport_type LIKE ?";
+    values.push(`%${sport_type}%`);
+  }
+
   try {
     const [results] = await pool.query(sql, values);
 
@@ -122,10 +156,29 @@ const searchPlayers = async (req, res) => {
   }
 };
 
+const getAllUsers = async (req, res) => {
+  const sql = "SELECT * FROM badminton";
+
+  try {
+    const [results] = await pool.query(sql);
+
+    if (results.length === 0) {
+      return res.status(404).send("No users found.");
+    }
+
+    res.status(200).json(results);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error fetching users.");
+  }
+};
+
 
 module.exports = {
   addUser,
   getUserById,
   upload,
-  searchPlayers
+  searchPlayers, 
+  updateMedalAndStatus, // Export the new API 
+  getAllUsers
 };

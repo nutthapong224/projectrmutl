@@ -10,14 +10,14 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-
 import { Link as RouterLink } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import logo from "../assets/logos.png";
 
 const Navbar = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // Check for mobile screen sizes
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // Mobile screen check
+  const isTabletOrLaptop = useMediaQuery(theme.breakpoints.between("sm", "lg")); // Tablet or laptop screen check
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleMenuOpen = (event) => {
@@ -31,9 +31,9 @@ const Navbar = () => {
   const navLinks = [
     { label: "ลงทะเบียนผู้ใช้งาน", to: "/register" },
     { label: "พิมพ์เกียรติบัตร", to: "/printcert" },
-    { label: "รายงานการแข่งขัน", to: "/systemcard" },
-    { label: "พิมพ์บัตรนักศึกษา", to: "/printstudent" },
-    { label: "เข้าสู่ระบบ", to: "/loginadmin" },
+    { label: "รายงานการแข่งขัน", to: "/reportsport" },
+    { label: "พิมพ์บัตรผู้เข้าร่วมการแข่งขัน", to: "/systemcard" }
+
   ];
 
   return (
@@ -84,14 +84,17 @@ const Navbar = () => {
         </Box>
 
         {/* Navigation Links */}
-        {isMobile ? (
+        {isMobile || isTabletOrLaptop ? (
           <>
             <IconButton
               edge="start"
               color="inherit"
               aria-label="menu"
               onClick={handleMenuOpen}
-              sx={{ color: "#333" }}
+              sx={{
+                color: "#333",
+                fontSize: isTabletOrLaptop ? "2.5rem" : "2rem", // Adjust icon size for tablet or laptop
+              }}
             >
               <MenuIcon />
             </IconButton>
@@ -99,6 +102,13 @@ const Navbar = () => {
               anchorEl={anchorEl}
               open={Boolean(anchorEl)}
               onClose={handleMenuClose}
+              sx={{
+                // Increase menu width and adjust padding on tablets and laptops
+                "& .MuiPaper-root": {
+                  width: isTabletOrLaptop ? 250 : 200, // Adjust width for tablets and mobile
+                  padding: isTabletOrLaptop ? 2 : 1, // Adjust padding for tablets and mobile
+                },
+              }}
             >
               {navLinks.map((link) => (
                 <MenuItem
@@ -110,7 +120,7 @@ const Navbar = () => {
                     textDecoration: "none",
                     color: "#333",
                     fontFamily: "'Kanit', sans-serif",
-                    fontSize: "1rem",
+                    fontSize: isTabletOrLaptop ? "1.2rem" : "1rem", // Adjust font size for tablets
                   }}
                 >
                   {link.label}

@@ -22,8 +22,10 @@ const BadmintonForm = () => {
     department: "",
     faculty: "",
     major: "",
-    phone_number: "",
-    sport_type: [],
+    phone_number: "", 
+    medal: "",
+    status:"ได้เข้าร่วมแข่งขัน",
+    sport_type: "",
     profile_image: null,
     document: null,
   });

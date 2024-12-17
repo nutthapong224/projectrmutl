@@ -23,9 +23,11 @@ const BasketballForm = () => {
     faculty: "",
     major: "",
     phone_number: "",
-    sport_type: [],
+    sport_type: "",
     profile_image: null,
-    document: null,
+    document: null, 
+    medal :"", 
+    status:"ได้เข้าร่วมแข่งขัน"
   });
 
   const [departments, setDepartments] = useState([]);
@@ -197,97 +199,30 @@ const BasketballForm = () => {
 
           {/* Checkbox สำหรับเลือกประเภทกีฬาแบตมินตัน */}
           <Grid item xs={12}>
-            <Typography variant="body1">ประเภทกีฬาแบตมินตัน:</Typography>  
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={formData.sport_type.includes("แบดมินตัน ชายเดี่ยว ทีม A")}
-                  onChange={handleCheckboxChange}
-                  name="แบดมินตัน ชายเดี่ยว ทีม A"
-                  color="primary"
-                />
-              }
-              label="แบดมินตัน ชายเดี่ยว ทีม A"
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={formData.sport_type.includes("แบดมินตัน ชายเดี่ยว ทีม B")}
-                  onChange={handleCheckboxChange}
-                  name="แบดมินตัน ชายเดี่ยว ทีม B"
-                  color="primary"
-                />
-              }
-              label="แบดมินตัน ชายเดี่ยว ทีม B"
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={formData.sport_type.includes("แบดมินตัน ชายคู่ ทีม A")}
-                  onChange={handleCheckboxChange}
-                  name="แบดมินตัน ชายคู่ ทีม A"
-                  color="primary"
-                />
-              }
-              label="แบดมินตัน ชายคู่ ทีม A"
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={formData.sport_type.includes("แบดมินตัน ชายคู่ ทีม B")}
-                  onChange={handleCheckboxChange}
-                  name="แบดมินตัน ชายคู่ ทีม B"
-                  color="primary"
-                />
-              }
-              label="แบดมินตัน ชายคู่ ทีม B"
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={formData.sport_type.includes("แบดมินตัน หญิงคู่ ทีม A")}
-                  onChange={handleCheckboxChange}
-                  name="แบดมินตัน หญิงคู่ ทีม A"
-                  color="primary"
-                />
-              }
-              label="แบดมินตัน หญิงคู่ ทีม A"
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={formData.sport_type.includes("แบดมินตัน หญิงเดี่ยว ทีม B")}
-                  onChange={handleCheckboxChange}
-                  name="แบดมินตัน หญิงเดี่ยว ทีม B"
-                  color="primary"
-                />
-              }
-              label="แบดมินตัน หญิงเดี่ยว ทีม B"
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={formData.sport_type.includes("แบดมินตัน คู่ผสม ทีม A")}
-                  onChange={handleCheckboxChange}
-                  name="แบดมินตัน คู่ผสม ทีม A"
-                  color="primary"
-                />
-              }
-              label="แบดมินตัน คู่ผสม ทีม A"
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={formData.sport_type.includes("แบดมินตัน คู่ผสม ทีม B")}
-                  onChange={handleCheckboxChange}
-                  name="แบดมินตัน คู่ผสม ทีม B"
-                  color="primary"
-                />
-              }
-              label="แบดมินตัน คู่ผสม ทีม B"
-            />
-          </Grid>
-
+  <TextField
+    fullWidth
+    select
+    label="ประเภทกีฬาแบตมินตัน"
+    name="sport_type"
+    value={formData.sport_type}
+    onChange={(e) => {
+      setFormData((prevData) => ({
+        ...prevData,
+        sport_type: [e.target.value], // Ensure it's an array
+      }));
+    }}
+    required
+  >
+    <MenuItem value="แบดมินตัน ชายเดี่ยว ทีม A">แบดมินตัน ชายเดี่ยว ทีม A</MenuItem>
+    <MenuItem value="แบดมินตัน ชายเดี่ยว ทีม B">แบดมินตัน ชายเดี่ยว ทีม B</MenuItem>
+    <MenuItem value="แบดมินตัน ชายคู่ ทีม A">แบดมินตัน ชายคู่ ทีม A</MenuItem>
+    <MenuItem value="แบดมินตัน ชายคู่ ทีม B">แบดมินตัน ชายคู่ ทีม B</MenuItem>
+    <MenuItem value="แบดมินตัน หญิงคู่ ทีม A">แบดมินตัน หญิงคู่ ทีม A</MenuItem>
+    <MenuItem value="แบดมินตัน หญิงเดี่ยว ทีม B">แบดมินตัน หญิงเดี่ยว ทีม B</MenuItem>
+    <MenuItem value="แบดมินตัน คู่ผสม ทีม A">แบดมินตัน คู่ผสม ทีม A</MenuItem>
+    <MenuItem value="แบดมินตัน คู่ผสม ทีม B">แบดมินตัน คู่ผสม ทีม B</MenuItem>
+  </TextField>
+</Grid>
           <Grid item xs={12}>
             <Typography variant="body1">รูปนักศึกษา:</Typography>
             <input

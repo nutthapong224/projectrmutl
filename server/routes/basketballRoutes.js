@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { addUser, getUserById, upload ,searchPlayers} = require("../controllers/basketballControllers");
+const { addUser, getUserById, upload ,searchPlayers,getSportTypes } = require("../controllers/basketballControllers");
 
 // Route to insert a new user
 router.post(
@@ -13,6 +13,7 @@ router.post(
 );
 
 router.get("/search", searchPlayers);
+router.get("/sport_types", getSportTypes);
 
 // Route to get a user by ID
 router.get("/:id", getUserById);

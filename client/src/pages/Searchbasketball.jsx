@@ -21,24 +21,29 @@ import {
 } from "@mui/material";
 
 const Searchbasketball = () => {
-  const [searchQuery, setSearchQuery] = useState({ fname: "", lname: "", department: "" });
+  const [searchQuery, setSearchQuery] = useState({ fname: "", lname: "", department: "", sport_type: "" });
   const [departments, setDepartments] = useState([]);
+  const [sportTypes, setSportTypes] = useState([]);
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");  // Error message state
   const navigate = useNavigate();
 
+  // Fetch departments and sport types from API
   useEffect(() => {
-    const fetchDepartments = async () => {
+    const fetchDepartmentsAndSportTypes = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/department");
-        setDepartments(response.data);
+        const departmentResponse = await axios.get("http://localhost:5000/api/department");
+        setDepartments(departmentResponse.data);
+  
+        const sportTypeResponse = await axios.get("http://localhost:5000/api/basketball/sport_types");
+        setSportTypes(sportTypeResponse.data);  // Store the sport types in a new state
       } catch (err) {
-        console.error("Failed to fetch departments", err);
+        console.error("Failed to fetch data", err);
       }
     };
-    fetchDepartments();
+    fetchDepartmentsAndSportTypes();
   }, []);
 
   const handleChange = (e) => {
@@ -50,20 +55,42 @@ const Searchbasketball = () => {
   };
 
   const handleSearch = async () => {
-    if (!searchQuery.fname || !searchQuery.lname || !searchQuery.department) {
+    if (!searchQuery.fname || !searchQuery.lname || !searchQuery.department || !searchQuery.sport_type) {
       setErrorMessage("กรุณากรอกข้อมูลทั้งหมด");
-      return;  // Prevent search if fields are not filled
+      return; // Prevent search if fields are not filled
     }
-
+  
     setLoading(true);
     setError(null);
     setErrorMessage("");  // Clear error message when searching
-
+  
     try {
       const response = await axios.get("http://localhost:5000/api/basketball/search", {
         params: searchQuery,
       });
-      setResults(response.data);
+  
+      const data = response.data;
+  
+      // If there are results, find the closest match
+      if (data.length > 0) {
+        // Function to calculate how closely a player matches the search query
+        const getMatchScore = (player) => {
+          let score = 0;
+          if (player.fname.includes(searchQuery.fname)) score++;
+          if (player.lname.includes(searchQuery.lname)) score++;
+          if (player.department === searchQuery.department) score++;
+          if (player.sport_type === searchQuery.sport_type) score++;
+          return score;
+        };
+  
+        // Sort players by match score (highest first)
+        const sortedResults = data.sort((a, b) => getMatchScore(b) - getMatchScore(a));
+  
+        // Set only the closest match result
+        setResults([sortedResults[0]]);
+      } else {
+        setResults([]);
+      }
     } catch (err) {
       console.error(err);
       setError("Error searching players.");
@@ -129,6 +156,24 @@ const Searchbasketball = () => {
             </Select>
           </FormControl>
         </Grid>
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth required>
+            <InputLabel>ประเภทกีฬา</InputLabel>
+            <Select
+              value={searchQuery.sport_type}
+              onChange={handleChange}
+              label="ประเภทกีฬา"
+              name="sport_type"
+              sx={{ fontFamily: "'Kanit', sans-serif" }}
+            >
+              {sportTypes.map((sport) => (
+                <MenuItem key={sport.sport_type} value={sport.sport_type}>
+                  {sport.sport_type}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
       </Grid>
 
       <Button
@@ -163,6 +208,7 @@ const Searchbasketball = () => {
               <TableRow>
                 <TableCell sx={{ fontFamily: "'Kanit', sans-serif" }}>ชื่อ-นามสกุล</TableCell>
                 <TableCell sx={{ fontFamily: "'Kanit', sans-serif" }}>วิทยาเขต</TableCell>
+                <TableCell sx={{ fontFamily: "'Kanit', sans-serif" }}>ประเภทกีฬา</TableCell>
                 <TableCell sx={{ fontFamily: "'Kanit', sans-serif" }}>แสดงข้อมูล</TableCell>
               </TableRow>
             </TableHead>
@@ -173,6 +219,7 @@ const Searchbasketball = () => {
                     {player.prefix} {player.fname} {player.lname}
                   </TableCell>
                   <TableCell sx={{ fontFamily: "'Kanit', sans-serif" }}>{player.department}</TableCell>
+                  <TableCell sx={{ fontFamily: "'Kanit', sans-serif" }}>{player.sport_type}</TableCell>
                   <TableCell>
                     <Button
                       variant="contained"

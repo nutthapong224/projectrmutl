@@ -30,7 +30,7 @@ const SporttypeRegister = () => {
   const items = [
     { label: "ฟุตบอล", path: "/searhfootball", icon: playerfootball },
     { label: "ฟุตซอล", path: "/searhfutsal", icon: playerfutsal },
-    { label: "บาสเกตบอล", path: "/searhbasketball", icon: playerbasketball },
+    { label: "บาสเกตบอล", path: "/createbasketball", icon: playerbasketball },
     { label: "วอลเลย์บอล", path: "/searhvolleyball", icon: playervolleyball },
     { label: "เทเบิลเทนิส", path: "/searhtabletenis", icon: playertabletenis },
     { label: "เปตอง", path: "/searhpetanque", icon: playerpetanque },
