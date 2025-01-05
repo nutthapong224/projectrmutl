@@ -31,7 +31,7 @@ const Loginadmin = () => {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
       // Redirect to the dashboard
-      navigate('/dashboard');
+      navigate('/admindashboard');
     } catch (err) {
       // Handle errors if login fails
       setError(err.response?.data?.message || 'Login failed');
@@ -66,7 +66,7 @@ const Loginadmin = () => {
         onSubmit={handleSubmit}
       >
         <Typography variant="h4" gutterBottom align="center">
-        เข้าสู้ระบบผู้ดูแลระบบ
+        เข้าสู่ระบบผู้ดูแลระบบ
         </Typography>
 
         <TextField

@@ -6,6 +6,7 @@ import player from "../assets/player.png";
 import coach from "../assets/coach.png"; 
 import organization from "../assets/organization.png" 
 import director from "../assets/director.png"
+import Navbar from "../components/Navbar";
 
 const Home = () => {
   const navigate = useNavigate(); 
@@ -17,6 +18,7 @@ const Home = () => {
   ];
 
   return (
+
     <Box
       sx={{
         display: "flex",
