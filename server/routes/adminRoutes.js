@@ -1,4 +1,4 @@
-const express = require('express');
+ express = require('express');
 const { adminLoginController , adminRegisterController} = require('../controllers/adminControllers');
 const { authenticateAdmin } = require('../middlewares/authenticateAdmin'); 
 

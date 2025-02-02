@@ -7,7 +7,7 @@ import * as FaIcons from 'react-icons/fa';
 export const SidebarData = [
   {
     title: 'อนุมัติลงทะเบียน',
-    path: '/admindashboard/overview',
+    path: '#',
     icon: <AiIcons.AiFillHome />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
@@ -29,53 +29,53 @@ export const SidebarData = [
       },
       {
         title: 'นักกีฬาฟุตบอล',
-        path: '/overview/revenue',
+        path: '/admindashboard/approve/football',
         icon: <IoIcons.IoIosPaper />
       },
       {
         title: 'นักกีฬาฟุตซอล',
-        path: '/overview/users',
+        path: '/admindashboard/approve/futsal',
         icon: <IoIcons.IoIosPaper />
       },
       {
         title: 'นักกีฬาบาสเกตบอล',
-        path: '/overview/users',
+        path: '/admindashboard/approve/basketball',
         icon: <IoIcons.IoIosPaper />
       },
       {
         title: 'นักกีฬาแบดมินตัน',
-        path: '/overview/users',
+        path: '/admindashboard/approve/badminton',
         icon: <IoIcons.IoIosPaper />
       },
    
       {
         title: 'นักกีฬาE-Sport',
-        path: '/overview/users',
+        path: '/admindashboard/approve/esport',
         icon: <IoIcons.IoIosPaper />
       },
       {
-        title: 'นักกีฬาตะกร้อ',
-        path: '/overview/revenue',
+        title: 'นักกีฬาเซปักตะกร้อ',
+        path: '/admindashboard/approve/takraw',
         icon: <IoIcons.IoIosPaper />
       },
       {
-        title: 'นักกีฬาบอลเลย์บอล',
-        path: '/overview/users',
+        title: 'นักกีฬาวอลเลย์บอล',
+        path: '/admindashboard/approve/volleyball',
         icon: <IoIcons.IoIosPaper />
       },
       {
         title: 'นักกีฬาเทเบิลเทนิส',
-        path: '/overview/revenue',
+        path: '/admindashboard/approve/tabletenis',
         icon: <IoIcons.IoIosPaper />
       },
       {
         title: 'นักกีฬาเปตอง',
-        path: '/overview/users',
+        path: '/admindashboard/approve/petanque',
         icon: <IoIcons.IoIosPaper />
       },
       {
-        title: 'ตะกร้อลอดห่วง',
-        path: '/overview/revenue',
+        title: 'นักกีฬาเซปักตะกร้อลอดห่วง',
+        path: '/admindashboard/approve/hooptakraw',
         icon: <IoIcons.IoIosPaper />
       },
     ]
@@ -249,53 +249,53 @@ export const SidebarData = [
       },
       {
         title: 'นักกีฬาฟุตบอล',
-        path: '/overview/revenue',
+        path: '/admindashboard/updatemedal/football',
         icon: <IoIcons.IoIosPaper />
       },
       {
         title: 'นักกีฬาฟุตซอล',
-        path: '/overview/users',
+        path: '/admindashboard/updatemedal/futsal',
         icon: <IoIcons.IoIosPaper />
       },
       {
         title: 'นักกีฬาบาสเกตบอล',
-        path: '/overview/users',
+        path: '/admindashboard/updatemedal/basketball',
         icon: <IoIcons.IoIosPaper />
       },
       {
         title: 'นักกีฬาแบดมินตัน',
-        path: '/overview/users',
+        path: '/admindashboard/updatemedal/badminton',
         icon: <IoIcons.IoIosPaper />
       },
    
       {
         title: 'นักกีฬาE-Sport',
-        path: '/overview/users',
+        path: '/admindashboard/updatemedal/esport',
         icon: <IoIcons.IoIosPaper />
       },
       {
-        title: 'นักกีฬาตะกร้อ',
-        path: '/overview/revenue',
+        title: 'นักกีฬาเซปักตะกร้อ',
+        path: '/admindashboard/updatemedal/takraw',
         icon: <IoIcons.IoIosPaper />
       },
       {
-        title: 'นักกีฬาบอลเลย์บอล',
-        path: '/overview/users',
+        title: 'นักกีฬาวอลเลย์บอล',
+        path: '/admindashboard/updatemedal/volleyball',
         icon: <IoIcons.IoIosPaper />
       },
       {
         title: 'นักกีฬาเทเบิลเทนิส',
-        path: '/overview/revenue',
+        path: '/admindashboard/updatemedal/tabletenis',
         icon: <IoIcons.IoIosPaper />
       },
       {
         title: 'นักกีฬาเปตอง',
-        path: '/overview/users',
+        path: '/admindashboard/updatemedal/petanque',
         icon: <IoIcons.IoIosPaper />
       },
       {
-        title: 'ตะกร้อลอดห่วง',
-        path: '/overview/revenue',
+        title: 'นักกีฬาเซปักตะกร้อลอดห่วง',
+        path: '/admindashboard/updatemedal/hooptakraw',
         icon: <IoIcons.IoIosPaper />
       },
     ]

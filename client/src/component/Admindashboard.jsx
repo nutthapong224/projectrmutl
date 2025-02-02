@@ -29,6 +29,7 @@ const NavIcon = styled(Link)`
     color: #4caf50;
     transition: all 0.3s ease;
   }
+
 `;
 
 const SidebarNav = styled.nav`

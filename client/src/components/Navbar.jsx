@@ -16,9 +16,11 @@ import logo from "../assets/logos.png";
 
 const Navbar = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // Mobile screen check
-  const isTabletOrLaptop = useMediaQuery(theme.breakpoints.between("sm", "lg")); // Tablet or laptop screen check
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isTabletOrLaptop = useMediaQuery(theme.breakpoints.between("sm", "lg"));
   const [anchorEl, setAnchorEl] = useState(null);
+  const [certificateAnchorEl, setCertificateAnchorEl] = useState(null);
+  const [registerAnchorEl, setRegisterAnchorEl] = useState(null); // New state for register dropdown
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -28,12 +30,63 @@ const Navbar = () => {
     setAnchorEl(null);
   };
 
+  const handleCertificateClick = (event) => {
+    setCertificateAnchorEl(event.currentTarget);
+  };
+
+  const handleCertificateClose = () => {
+    setCertificateAnchorEl(null);
+  };
+
+  const handleRegisterClick = (event) => {
+    setRegisterAnchorEl(event.currentTarget);
+  };
+
+  const handleRegisterClose = () => {
+    setRegisterAnchorEl(null);
+  };
+
   const navLinks = [
-    { label: "ลงทะเบียนผู้ใช้งาน", to: "/register" },
-    { label: "พิมพ์เกียรติบัตร", to: "/printcert" },
+    { label: "ลงทะเบียนผู้ใช้งาน", to: "/register", isRegisterDropdown: true },
+    { label: "พิมพ์เกียรติบัตร", to: "/", isDropdown: true },
     { label: "รายงานการแข่งขัน", to: "/reportsport" },
     { label: "พิมพ์บัตรผู้เข้าร่วมการแข่งขัน", to: "/systemcard" }
+  ];
 
+  // Registration dropdown items
+  const registerOptions = [
+    { label: "ลงทะเบียนนักกีฬาฟุตบอล", to: "/createfootball" },
+    { label: "ลงทะเบียนนักกีฬาฟุตซอล", to: "/createfutsal" },
+    { label: "ลงทะเบียนนักกีฬาเปตอง", to: "/createpetanque" },
+    { label: "ลงทะเบียนนักกีฬาบาสเกตบอล", to: "/createbasketball" },
+    { label: "ลงทะเบียนนักกีฬาเทเบิลเทนนิส", to: "/createtabletenis" },
+    { label: "ลงทะเบียนนักกีฬาเซปักตะกร้อลอดห่วง", to: "/createhooptakraw" },
+    { label: "ลงทะเบียนนักกีฬาเซปักตะกร้อ", to: "/createtakraw" },
+    { label: "ลงทะเบียนนักกีฬาวอลเลย์บอล", to: "/createvolleyball" },
+    { label: "ลงทะเบียนนักกีฬา E-Sport", to: "/createesport" },
+    { label: "ลงทะเบียนนักกีฬาแบดมินตัน", to: "/createbadminton" },
+    { label: "ลงทะเบียนผู้ฝึกสอนและผู้จัดการทีม", to: "/createstaff" },
+    { label: "ลงทะเบียนองค์การนักศึกษา", to: "/reportbadminton" },
+    { label: "ลงทะเบียนกรรมการตัดสิน ผู้ช่วยผู้ตัดสิน และฝ่ายเทคนิคกีฬา", to: "/reportbadminton" },
+
+
+  ];
+
+  // Existing certificate options remain the same
+  const certificateOptions = [
+    { label: "ฟุตบอล", to: "/reportfootball" },
+    { label: "ฟุตซอล", to: "/reportfutsal" },
+    { label: "เปตอง", to: "/reportpetanque" },
+    { label: "บาสเกตบอล", to: "/reportbasketball" },
+    { label: "เทเบิลเทนิส", to: "/reporttabletenis" },
+    { label: "เซปักตะกร้อ", to: "/reporttakraw" },
+    { label: "เซปักตะกร้อลอดห่วง", to: "/reporthooptakraw" },
+    { label: "วอลเลย์บอล", to: "/reportvolleyball" },
+    { label: "E-sport", to: "/reportesport" },
+    { label: "แบตมินตัน", to: "/reportbadminton" },
+    { label: "องค์การนักศึกษา", to: "/reportbadminton" },
+    { label: "ผู้จัดการทีม ผู้ช่วยผู้ฝึกสอน และผู้จัดการทีม", to: "/reportbadminton" },
+    { label: "กรรมการตัดสิน ผู้ช่วยผู้ตัดสิน และฝ่ายเทคนิคกีฬา", to: "/reportbadminton" },
   ];
 
   return (
@@ -46,7 +99,7 @@ const Navbar = () => {
           px: { xs: 2, sm: 4 },
         }}
       >
-        {/* Logo Section */}
+        {/* Logo Section - Unchanged */}
         <Box
           component={RouterLink}
           to="/"
@@ -61,8 +114,8 @@ const Navbar = () => {
             src={logo}
             alt="Logo"
             sx={{
-              height: { xs: 30, sm: 40, md: 50 }, // Responsive logo height
-              width: "auto", // Maintain aspect ratio
+              height: { xs: 30, sm: 40, md: 50 },
+              width: "auto",
               mr: 2,
             }}
           />
@@ -93,7 +146,7 @@ const Navbar = () => {
               onClick={handleMenuOpen}
               sx={{
                 color: "#333",
-                fontSize: isTabletOrLaptop ? "2.5rem" : "2rem", // Adjust icon size for tablet or laptop
+                fontSize: isTabletOrLaptop ? "2.5rem" : "2rem",
               }}
             >
               <MenuIcon />
@@ -103,29 +156,62 @@ const Navbar = () => {
               open={Boolean(anchorEl)}
               onClose={handleMenuClose}
               sx={{
-                // Increase menu width and adjust padding on tablets and laptops
                 "& .MuiPaper-root": {
-                  width: isTabletOrLaptop ? 250 : 200, // Adjust width for tablets and mobile
-                  padding: isTabletOrLaptop ? 2 : 1, // Adjust padding for tablets and mobile
+                  width: isTabletOrLaptop ? 250 : 200,
+                  padding: isTabletOrLaptop ? 2 : 1,
                 },
               }}
             >
-              {navLinks.map((link) => (
-                <MenuItem
-                  key={link.to}
-                  component={RouterLink}
-                  to={link.to}
-                  onClick={handleMenuClose}
-                  sx={{
-                    textDecoration: "none",
-                    color: "#333",
-                    fontFamily: "'Kanit', sans-serif",
-                    fontSize: isTabletOrLaptop ? "1.2rem" : "1rem", // Adjust font size for tablets
-                  }}
-                >
-                  {link.label}
-                </MenuItem>
-              ))}
+              {navLinks.map((link) => {
+                if (link.isRegisterDropdown) {
+                  return (
+                    <MenuItem
+                      key={link.to}
+                      onClick={handleRegisterClick}
+                      sx={{
+                        textDecoration: "none",
+                        color: "#333",
+                        fontFamily: "'Kanit', sans-serif",
+                        fontSize: isTabletOrLaptop ? "1.2rem" : "1rem",
+                      }}
+                    >
+                      {link.label}
+                    </MenuItem>
+                  );
+                } else if (link.isDropdown) {
+                  return (
+                    <MenuItem
+                      key={link.to}
+                      onClick={handleCertificateClick}
+                      sx={{
+                        textDecoration: "none",
+                        color: "#333",
+                        fontFamily: "'Kanit', sans-serif",
+                        fontSize: isTabletOrLaptop ? "1.2rem" : "1rem",
+                      }}
+                    >
+                      {link.label}
+                    </MenuItem>
+                  );
+                } else {
+                  return (
+                    <MenuItem
+                      key={link.to}
+                      component={RouterLink}
+                      to={link.to}
+                      onClick={handleMenuClose}
+                      sx={{
+                        textDecoration: "none",
+                        color: "#333",
+                        fontFamily: "'Kanit', sans-serif",
+                        fontSize: isTabletOrLaptop ? "1.2rem" : "1rem",
+                      }}
+                    >
+                      {link.label}
+                    </MenuItem>
+                  );
+                }
+              })}
             </Menu>
           </>
         ) : (
@@ -136,25 +222,105 @@ const Navbar = () => {
               alignItems: "center",
             }}
           >
-            {navLinks.map((link) => (
-              <Typography
-                key={link.to}
-                variant="h6"
-                component={RouterLink}
-                to={link.to}
-                sx={{
-                  textDecoration: "none",
-                  color: "#333",
-                  fontFamily: "'Kanit', sans-serif",
-                  fontSize: { sm: "1rem", md: "1.2rem" },
-                  "&:hover": {
-                    color: "primary.main",
-                  },
-                }}
-              >
-                {link.label}
-              </Typography>
-            ))}
+            {navLinks.map((link) => {
+              if (link.isRegisterDropdown) {
+                return (
+                  <Box key={link.to} sx={{ position: "relative" }}>
+                    <Typography
+                      variant="h6"
+                      component="div"
+                      onClick={handleRegisterClick}
+                      sx={{
+                        textDecoration: "none",
+                        color: "#333",
+                        fontFamily: "'Kanit', sans-serif",
+                        fontSize: { sm: "1rem", md: "1.2rem" },
+                        cursor: "pointer",
+                        "&:hover": {
+                          color: "primary.main",
+                        },
+                      }}
+                    >
+                      {link.label}
+                    </Typography>
+                    <Menu
+                      anchorEl={registerAnchorEl}
+                      open={Boolean(registerAnchorEl)}
+                      onClose={handleRegisterClose}
+                    >
+                      {registerOptions.map((option) => (
+                        <MenuItem
+                          key={option.to}
+                          component={RouterLink}
+                          to={option.to}
+                          onClick={handleRegisterClose}
+                        >
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </Menu>
+                  </Box>
+                );
+              } else if (link.isDropdown) {
+                return (
+                  <Box key={link.to} sx={{ position: "relative" }}>
+                    <Typography
+                      variant="h6"
+                      component="div"
+                      onClick={handleCertificateClick}
+                      sx={{
+                        textDecoration: "none",
+                        color: "#333",
+                        fontFamily: "'Kanit', sans-serif",
+                        fontSize: { sm: "1rem", md: "1.2rem" },
+                        cursor: "pointer",
+                        "&:hover": {
+                          color: "primary.main",
+                        },
+                      }}
+                    >
+                      {link.label}
+                    </Typography>
+                    <Menu
+                      anchorEl={certificateAnchorEl}
+                      open={Boolean(certificateAnchorEl)}
+                      onClose={handleCertificateClose}
+                    >
+                      {certificateOptions.map((option) => (
+                        <MenuItem
+                          key={option.to}
+                          component={RouterLink}
+                          to={option.to}
+                          onClick={handleCertificateClose}
+                        >
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </Menu>
+                  </Box>
+                );
+              } else {
+                return (
+                  <Typography
+                    key={link.to}
+                    variant="h6"
+                    component={RouterLink}
+                    to={link.to}
+                    sx={{
+                      textDecoration: "none",
+                      color: "#333",
+                      fontFamily: "'Kanit', sans-serif",
+                      fontSize: { sm: "1rem", md: "1.2rem" },
+                      "&:hover": {
+                        color: "primary.main",
+                      },
+                    }}
+                  >
+                    {link.label}
+                  </Typography>
+                );
+              }
+            })}
           </Box>
         )}
       </Toolbar>

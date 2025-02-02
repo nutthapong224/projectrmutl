@@ -15,11 +15,11 @@ const Playerbadminton = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [flip, setFlip] = useState(false); // Define the flip state
-
+  const API_URL_BADMINTON = import.meta.env.VITE_API_URL_BADMINTON;
   useEffect(() => {
     const fetchPlayerDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/badminton/${id}`);
+        const response = await axios.get(`${API_URL_BADMINTON}/${id}`);
         setPlayer(response.data);
       } catch (err) {
         setError("Failed to fetch player details.");
@@ -215,7 +215,7 @@ const Playerbadminton = () => {
                 <CardMedia
                   component="img"
                   height="160"
-                  image={`http://localhost:5000/uploads/${player.profile_image}`}
+                  image={`http://localhost:5000${player.profile_image}`}
                   alt={`${player.fname} ${player.lname}`}
                   sx={{ width: "48%" }}
                   style={{ border: "3px solid red" }}

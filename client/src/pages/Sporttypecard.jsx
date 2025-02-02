@@ -28,16 +28,16 @@ const Sporttypecard = () => {
   const isMobileView = useMediaQuery("(max-width:450px)");
 
   const items = [
-    { label: "ฟุตบอล", path: "/searhfootball", icon: playerfootball },
-    { label: "ฟุตซอล", path: "/searhfutsal", icon: playerfutsal },
+    { label: "ฟุตบอล", path: "/searchfootball", icon: playerfootball },
+    { label: "ฟุตซอล", path: "/searchfutsal", icon: playerfutsal },
     { label: "บาสเกตบอล", path: "/searchbasketball", icon: playerbasketball },
-    { label: "วอลเลย์บอล", path: "/searhvolleyball", icon: playervolleyball },
-    { label: "เทเบิลเทนิส", path: "/searhtabletenis", icon: playertabletenis },
-    { label: "เปตอง", path: "/searhpetanque", icon: playerpetanque },
-    { label: "แบดมินตัน", path: "/searhbadminton", icon: playerbadminton },
-    { label: "เซปักตะกร้อ", path: "/searhtakraw", icon: playertakraw },
-    { label: "ตะกร้อลอดห่วง", path: "/searhhooptakraw", icon: hooptakraw },
-    { label: "E-Sport", path: "/searhesport", icon: esport },
+    { label: "วอลเลย์บอล", path: "/searchvolleyball", icon: playervolleyball },
+    { label: "เทเบิลเทนิส", path: "/searchtabletenis", icon: playertabletenis },
+    { label: "เปตอง", path: "/searchpetanque", icon: playerpetanque },
+    { label: "แบดมินตัน", path: "/searchbadminton", icon: playerbadminton },
+    { label: "เซปักตะกร้อ", path: "/searchtakraw", icon: playertakraw },
+    { label: "ตะกร้อลอดห่วง", path: "/searchhooptakraw", icon: hooptakraw },
+    { label: "E-Sport", path: "/searchesport", icon: esport },
   ];
 
   return (

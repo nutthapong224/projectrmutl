@@ -13,7 +13,7 @@ import {
   FormControlLabel,
 } from "@mui/material";
 
-const BadmintonForm = () => {
+const BasketballForm = () => {
   const [formData, setFormData] = useState({
     prefix: "",
     fname: "",
@@ -22,22 +22,23 @@ const BadmintonForm = () => {
     department: "",
     faculty: "",
     major: "",
-    phone_number: "", 
-    medal: "",
-    status:"ได้เข้าร่วมแข่งขัน",
+    phone_number: "",
     sport_type: "",
     profile_image: null,
-    document: null,
+    document: null, 
+
+    status:"ได้เข้าร่วมแข่งขัน"
   });
 
   const [departments, setDepartments] = useState([]);
   const navigate = useNavigate(); // Initialize useNavigate
+  const apiBase = import.meta.env.VITE_API_URL;
   useEffect(() => {
     const fetchDepartments = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/department");
-        setDepartments(response.data);
-        // navigate("/searchbasketball"); // Navigate to /searchbadminton on success
+        const response = await axios.get(`${apiBase}/department`);
+        setDepartments(response.data); 
+    
       } catch (err) {
         console.error("ส่งข้อมูลผิดพลาด", err);
       }
@@ -79,18 +80,26 @@ const BadmintonForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = new FormData();
-
+  
     for (const key in formData) {
       data.append(key, formData[key]);
     }
-
+  
     try {
-      const response = await axios.post("http://localhost:5000/api/basketball/add", data, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await axios.post(
+        `${apiBase}/approvebasketball/add`,
+        data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+  
       alert(response.data.message);
+  
+      // Navigate to /searchbadminton on success
+      navigate("/searchbasketball");
     } catch (err) {
       console.error(err);
       alert("Error adding user");
@@ -199,32 +208,25 @@ const BadmintonForm = () => {
 
           {/* Checkbox สำหรับเลือกประเภทกีฬาแบตมินตัน */}
           <Grid item xs={12}>
-            <Typography variant="body1">ประเภทกีฬาแบตมินตัน:</Typography>  
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={formData.sport_type.includes("บาสเกตบอล ชาย")}
-                  onChange={handleCheckboxChange}
-                  name="บาสเกตบอล ชาย"
-                  color="primary"
-                />
-              }
-              label="บาสเกตบอล ชาย"
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={formData.sport_type.includes("บาสเกตบอล หญิง")}
-                  onChange={handleCheckboxChange}
-                  name="บาสเกตบอล หญิง"
-                  color="primary"
-                />
-              }
-              label="บาสเกตบอล หญิง"
-            />
-           
-          </Grid>
+  <TextField
+    fullWidth
+    select
+    label="ประเภทกีฬาบาสเก็บบอล"
+    name="sport_type"
+    value={formData.sport_type}
+    onChange={(e) => {
+      setFormData((prevData) => ({
+        ...prevData,
+        sport_type: [e.target.value], // Ensure it's an array
+      }));
+    }}
+    required
+  >
+    <MenuItem value="บาสเกตบอลชาย">บาสเก็บบอลชาย</MenuItem>
+    <MenuItem value="บาสเกตบอลหญิง">บาสเก็บบอลหญิง</MenuItem>
 
+  </TextField>
+</Grid>
           <Grid item xs={12}>
             <Typography variant="body1">รูปนักศึกษา:</Typography>
             <input
@@ -258,4 +260,4 @@ const BadmintonForm = () => {
   );
 };
 
-export default BadmintonForm;
+export default BasketballForm;

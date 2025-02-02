@@ -5,20 +5,22 @@ services:
     build: .
     ports:
       - "${PORT}:${PORT}"
+    volumes:
+      - .:/usr/src/app
     env_file:
       - .env
     depends_on:
       db:
         condition: service_healthy
-
+    
   db:
-    image: mysql:latest  # Use the latest version of MySQL
+    image: mysql:latest
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
       MYSQL_DATABASE: "${DB_NAME}"
-      MYSQL_USER: "${DB_USER}"  # Create an admin user
-      MYSQL_PASSWORD: "${ADMIN_PASSWORD}"  # Password for the admin user 
+      MYSQL_USER: "${DB_USER}"
+      MYSQL_PASSWORD: "${ADMIN_PASSWORD}"
     ports:
       - "3306:3306"
     volumes:
@@ -29,7 +31,7 @@ services:
       timeout: 5s
       retries: 5
 
-  phpmyadmin:  # Correctly nested under services
+  phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin
     environment:
@@ -37,7 +39,9 @@ services:
     ports:
       - "8080:80"
     depends_on:
-      - db 
+      - db
 
 volumes:
   db_data:
+    name: app_db_data
+    driver: local

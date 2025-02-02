@@ -13,6 +13,9 @@ RUN npm install
 # Copy the rest of the application code
 COPY . .
 
+# Set the working directory inside the container
+WORKDIR /usr/src/app
+
 # Expose the application port
 EXPOSE 5000
 

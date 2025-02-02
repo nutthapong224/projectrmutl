@@ -29,16 +29,25 @@ const Searchbasketball = () => {
   const [error, setError] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");  // Error message state
   const navigate = useNavigate();
+  const apiBaseUrl = import.meta.env.VITE_API_URL_APPROVEBASKETBALL;
+
 
   // Fetch departments and sport types from API
   useEffect(() => {
     const fetchDepartmentsAndSportTypes = async () => {
       try {
-        const departmentResponse = await axios.get("http://localhost:5000/api/department");
-        setDepartments(departmentResponse.data);
-  
-        const sportTypeResponse = await axios.get("http://localhost:5000/api/basketball/sport_types");
-        setSportTypes(sportTypeResponse.data);  // Store the sport types in a new state
+        // Fetch departments and sport types in a single API call
+        const filterResponse = await axios.get(`${apiBaseUrl}/getfilter`);
+        
+        if (filterResponse.data) {
+          setDepartments(filterResponse.data.departments.map(dept => ({
+            id: dept,
+            name: dept
+          })));
+          setSportTypes(filterResponse.data.sportTypes.map(sport => ({
+            sport_type: sport
+          })));
+        }
       } catch (err) {
         console.error("Failed to fetch data", err);
       }
@@ -65,7 +74,7 @@ const Searchbasketball = () => {
     setErrorMessage("");  // Clear error message when searching
   
     try {
-      const response = await axios.get("http://localhost:5000/api/basketball/search", {
+      const response = await axios.get(`${apiBaseUrl}/search`, {
         params: searchQuery,
       });
   

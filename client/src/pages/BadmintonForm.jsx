@@ -13,7 +13,7 @@ import {
   FormControlLabel,
 } from "@mui/material";
 
-const BasketballForm = () => {
+const Badmintonform = () => {
   const [formData, setFormData] = useState({
     prefix: "",
     fname: "",
@@ -26,18 +26,19 @@ const BasketballForm = () => {
     sport_type: "",
     profile_image: null,
     document: null, 
-    medal :"", 
+
     status:"ได้เข้าร่วมแข่งขัน"
   });
 
   const [departments, setDepartments] = useState([]);
   const navigate = useNavigate(); // Initialize useNavigate
+  const apiBase = import.meta.env.VITE_API_URL;
   useEffect(() => {
     const fetchDepartments = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/department");
+        const response = await axios.get(`${apiBase}/department`);
         setDepartments(response.data); 
-        // navigate("/searchbadminton"); // Navigate to /searchbadminton on success
+    
       } catch (err) {
         console.error("ส่งข้อมูลผิดพลาด", err);
       }
@@ -79,18 +80,26 @@ const BasketballForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = new FormData();
-
+  
     for (const key in formData) {
       data.append(key, formData[key]);
     }
-
+  
     try {
-      const response = await axios.post("http://localhost:5000/api/badminton/add", data, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await axios.post(
+        `${apiBase}/approvebadminton/add`,
+        data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+  
       alert(response.data.message);
+  
+      // Navigate to /searchbadminton on success
+      navigate("/searchbadminton");
     } catch (err) {
       console.error(err);
       alert("Error adding user");
@@ -256,4 +265,4 @@ const BasketballForm = () => {
   );
 };
 
-export default BasketballForm;
+export default Badmintonform;

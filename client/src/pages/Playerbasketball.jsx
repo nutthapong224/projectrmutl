@@ -9,17 +9,17 @@ import logo from "../assets/logos.png";
 import qrcode from "../assets/qrcodesport.png";
 import backgroundimg from "../assets/background3.png";
 
-const Playerbasketball = () => {
+const Playerbadminton = () => {
   const { id } = useParams(); // Get the player ID from the URL
   const [player, setPlayer] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [flip, setFlip] = useState(false); // Define the flip state
-
+  const VITE_API_URL_BASKETBALL = import.meta.env.VITE_API_URL_APPROVEBASKETBALL;
   useEffect(() => {
     const fetchPlayerDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/basketball/${id}`);
+        const response = await axios.get(`${VITE_API_URL_BASKETBALL}/${id}`);
         setPlayer(response.data);
       } catch (err) {
         setError("Failed to fetch player details.");
@@ -215,7 +215,7 @@ const Playerbasketball = () => {
                 <CardMedia
                   component="img"
                   height="160"
-                  image={`http://localhost:5000/uploads/${player.profile_image}`}
+                  image={`http://localhost:5000${player.profile_image}`}
                   alt={`${player.fname} ${player.lname}`}
                   sx={{ width: "48%" }}
                   style={{ border: "3px solid red" }}
@@ -316,4 +316,4 @@ const Playerbasketball = () => {
   );
 };
 
-export default Playerbasketball;
+export default Playerbadminton;
