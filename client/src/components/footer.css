@@ -1,0 +1,20 @@
+/* Add these styles to your footer.css file */
+
+/* Make the main content area fill the viewport height */
+#root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  /* Make the content area expand to push footer down */
+  .app-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  
+  /* Make the content wrapper take available space */
+  .content-wrapper {
+    flex: 1;
+  }

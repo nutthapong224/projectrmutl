@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link as RouterLink } from 'react-router-dom'; // Add RouterLink for navigation
 
 const RegisterAdmin = () => {
-  const [form, setForm] = useState({ username: '', password: '' });
+  const [form, setForm] = useState({ username: '', password: '',role:'admin' });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false); // Loading state for the button
@@ -29,7 +29,7 @@ const RegisterAdmin = () => {
       );
 
       setSuccess(response.data.message || 'Admin registered successfully!');
-      setForm({ username: '', password: '' }); // Reset form
+      setForm({ username: '', password: '',role:'admin' }); // Reset form
       setLoading(false);
 
       // Navigate to /registeradmin after a delay to show success message

@@ -10,10 +10,10 @@ import director from "../assets/director.png"
 const Systermcard = () => {
   const navigate = useNavigate(); 
   const items = [
-    { label: "ผู้คุมทีม", path: "/coach", icon: coach, description: "เจ้าหน้าที่ผู้คุมนักกีฬา" },
-    { label: "นักศึกษาที่ลงแข่งขัน", path: "/sporttypecard", icon: player, description: "นักศึกษาที่ลงแข่งขัน" },  
+    { label: "ผู้คุมทีม", path: "/searchcoach", icon: coach, description: "เจ้าหน้าที่ผู้คุมนักกีฬา" },
+    { label: "นักศึกษาที่ลงแข่งขัน", path: "/searchplayer", icon: player, description: "นักศึกษาที่ลงแข่งขัน" },  
     { label: "องค์การนักศึกษา", path: "/searchstudentorganization", icon: organization, description: "องค์การนักศึกษา" },
-    { label: "กรรมการตัดสิน", path: "/director", icon: director, description: "กรรมการตัดสิน" }, 
+    { label: "กรรมการตัดสิน", path: "/searchdirector", icon: director, description: "กรรมการตัดสิน" }, 
 
   ];
 

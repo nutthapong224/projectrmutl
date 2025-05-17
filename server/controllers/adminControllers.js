@@ -29,14 +29,14 @@ exports.adminLoginController = async (req, res) => {
       return res.status(401).json({ message: 'Invalid credentials.' });
     }
 
-    // Generate JWT token
+    // Generate JWT token with role
     const token = jwt.sign(
-      { id: admin.id, role: 'admin' },
+      { id: admin.id, role: admin.role },  // Include role here
       JWT_SECRET,
       { expiresIn: '1h' }
     );
 
-    res.status(200).json({ message: 'Login successful', token });
+    res.status(200).json({ message: 'Login successful', token, role: admin.role }); // Return role in response
   } catch (err) {
     console.error('Error during admin login:', err);
     res.status(500).json({ message: 'Internal server error' });
@@ -44,8 +44,9 @@ exports.adminLoginController = async (req, res) => {
 };
 
 
+
   exports.adminRegisterController = async (req, res) => {
-    const { username, password } = req.body;
+    const { username, password ,role} = req.body;
   
     // Validate the request data
     if (!username || !password) {
@@ -64,9 +65,10 @@ exports.adminLoginController = async (req, res) => {
       const hashedPassword = bcrypt.hashSync(password, salt);
   
       // Insert the new user into the database
-      const result = await pool.query('INSERT INTO admin (username, password) VALUES (?, ?)', [
+      const result = await pool.query('INSERT INTO admin (username, password,role) VALUES (?, ?,?)', [
         username,
         hashedPassword,
+        role
       ]);
   
       // Generate a JWT token

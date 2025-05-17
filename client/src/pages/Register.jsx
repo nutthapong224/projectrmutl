@@ -7,13 +7,13 @@ import coach from "../assets/coach.png";
 import organization from "../assets/organization.png" 
 import director from "../assets/director.png"
 
-const Register = () => {
+const Systermcard = () => {
   const navigate = useNavigate(); 
   const items = [
-    { label: "ผู้คุมทีม", path: "/coach", icon: coach, description: "เจ้าหน้าที่ผู้คุมนักกีฬา" },
-    { label: "นักศึกษาที่ลงแข่งขัน", path: "/sporttyperegister", icon: player, description: "นักศึกษาที่ลงแข่งขัน" },  
-    { label: "องค์การนักศึกษา", path: "/createstudentorganizationform", icon: organization, description: "องค์การนักศึกษา" },
-    { label: "กรรมการตัดสิน", path: "/director", icon: director, description: "กรรมการตัดสิน" }, 
+    { label: "ผู้คุมทีม", path: "/registercoach", icon: coach, description: "เจ้าหน้าที่ผู้คุมนักกีฬา" },
+    { label: "นักศึกษาที่ลงแข่งขัน", path: "/registerplayer", icon: player, description: "นักศึกษาที่ลงแข่งขัน" },  
+    { label: "องค์การนักศึกษา", path: "/registerstudentorganization", icon: organization, description: "องค์การนักศึกษา" },
+    { label: "กรรมการตัดสิน", path: "/registerdirector", icon: director, description: "กรรมการตัดสิน" }, 
 
   ];
 
@@ -40,7 +40,7 @@ const Register = () => {
 
         }}
       >
-        ระบบลงทะเบียน
+        ลงทะเบียนผู้สมัคร
       </Typography>
 
       <Grid2
@@ -114,4 +114,4 @@ const Register = () => {
   );
 };
 
-export default Register;  
+export default Systermcard;  

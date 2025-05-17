@@ -108,13 +108,8 @@ const Loginadmin = () => {
           </Button>
         )}
 
-        {/* Register Link */}
-        <Typography variant="body2" align="center" sx={{ mt: 2 }}>
-          ท่านมีบัญชีผู้ใช้งานรึยัง?{' '}
-          <RouterLink to="/registeradmin" style={{ textDecoration: 'none', color: '#3f51b5' }}>
-            ลงทะเบียน
-          </RouterLink>
-        </Typography>
+
+       
       </Box>
     </Box>
   );

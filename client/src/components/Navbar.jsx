@@ -47,30 +47,17 @@ const Navbar = () => {
   };
 
   const navLinks = [
-    { label: "ลงทะเบียนผู้ใช้งาน", to: "/register", isRegisterDropdown: true },
-    { label: "พิมพ์เกียรติบัตร", to: "/", isDropdown: true },
-    { label: "รายงานการแข่งขัน", to: "/reportsport" },
-    { label: "พิมพ์บัตรผู้เข้าร่วมการแข่งขัน", to: "/systemcard" }
+    { label: "ลงทะเบียนผู้ใช้งาน", to: "/register" },
+    { label: "พิมพ์เกียรติบัตร", to: "/report" },
+  
+    { label: "พิมพ์บัตรผู้เข้าร่วมการแข่งขัน", to: "/systemcard" },
+    { label: "รายงานการแข่งขัน", to: "/matchresult" },
+    { label: "ตารางเหรียญรางวัล", to: "/tablemedal" },
+    { label: "เข้าสู่ระบบ", to: "/loginpage" }
   ];
 
   // Registration dropdown items
-  const registerOptions = [
-    { label: "ลงทะเบียนนักกีฬาฟุตบอล", to: "/createfootball" },
-    { label: "ลงทะเบียนนักกีฬาฟุตซอล", to: "/createfutsal" },
-    { label: "ลงทะเบียนนักกีฬาเปตอง", to: "/createpetanque" },
-    { label: "ลงทะเบียนนักกีฬาบาสเกตบอล", to: "/createbasketball" },
-    { label: "ลงทะเบียนนักกีฬาเทเบิลเทนนิส", to: "/createtabletenis" },
-    { label: "ลงทะเบียนนักกีฬาเซปักตะกร้อลอดห่วง", to: "/createhooptakraw" },
-    { label: "ลงทะเบียนนักกีฬาเซปักตะกร้อ", to: "/createtakraw" },
-    { label: "ลงทะเบียนนักกีฬาวอลเลย์บอล", to: "/createvolleyball" },
-    { label: "ลงทะเบียนนักกีฬา E-Sport", to: "/createesport" },
-    { label: "ลงทะเบียนนักกีฬาแบดมินตัน", to: "/createbadminton" },
-    { label: "ลงทะเบียนผู้ฝึกสอนและผู้จัดการทีม", to: "/createstaff" },
-    { label: "ลงทะเบียนองค์การนักศึกษา", to: "/reportbadminton" },
-    { label: "ลงทะเบียนกรรมการตัดสิน ผู้ช่วยผู้ตัดสิน และฝ่ายเทคนิคกีฬา", to: "/reportbadminton" },
 
-
-  ];
 
   // Existing certificate options remain the same
   const certificateOptions = [
